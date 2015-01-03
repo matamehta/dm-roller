@@ -8,7 +8,7 @@ script for you.
 ## Features
 
 Very simple main program interprets the `rolltables.json` file for all of the rolls. You can use `\n` and `\t`
-to format names for output in the JSON as well. It allows dice ranges as well as mutliple dice rolled as well
+to format names for output in the JSON as well. It allows dice ranges as well as multiple dice rolled as well
 as a simple modifier for 1d20+1 type rolls. 
 
 As of now, the modifier is hard coded into the json file. And, all rolls are performed when the script runs. 
@@ -31,3 +31,6 @@ Please note that you can *nest* rolls almost as far as you would like. The funct
 regard. I may clean up the json format in the future but it should not be a large change; it will likely be
 the addition of some sort of category or other filtering tags so that not every single roll is rolled on
 script call.
+
+A good example of nesting is found in the *bureacracy* section of `rolltables.json` and shows the proper way
+to nest rolls. The nested roll will only be called if bureaucracy was the result of the parent roll.
