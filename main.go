@@ -7,21 +7,22 @@ import "io/ioutil"
 import "math/rand"
 import "github.com/antonholmquist/jason"
 
-var LOADED *jason.Object
+var LOADED *jason.Object // global var to hold the entire json object from file
 
+// loads from file into the jason.Object pointer.
 func LoadRollTables() (err error) {
-	fi, err := os.Open("./rolltables.json")
+	fi, err := os.Open("./rolltables.json") // hardcoded input file
 	if err != nil {
 		panic(err)
 	}
 	defer fi.Close()
 
-	r, err := ioutil.ReadAll(fi)
+	r, err := ioutil.ReadAll(fi) // read entire file at once, may need to change if files get large
 	if err != nil {
 		panic(err)
 	}
 
-	LOADED, err = jason.NewObjectFromBytes(r)
+	LOADED, err = jason.NewObjectFromBytes(r) // take the bytes object and turn into the jason object
 	if err != nil {
 		panic(err)
 	}
@@ -29,12 +30,13 @@ func LoadRollTables() (err error) {
 	return err
 }
 
+// rolls all the tables in the jason.Object pointer LOADED.
 func RollAllTables() (err error) {
 	rtables, err := LOADED.GetObjectArray("rolltables")
 	for _, value := range rtables {
 		err = RollOneTable(value)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println(err) // just want to print, not panic so it keeps going through other rolls
 		}
 	}
 	return
@@ -42,18 +44,26 @@ func RollAllTables() (err error) {
 
 func RollOneTable(rt *jason.Object) (err error) {
 
-	var i int64
-	var rolls []int64
-	var total int64
-	var dnum int64
+	// initialize vars
+	var i int64       // counter for the loop of rolls
+	var rolls []int64 // holds a list of all rolls if needed later for debugging
+	var total int64   // result amount
+	var dnum int64    // how many dice to roll
+	var dmod int64    // this is to add a single fixed modifier amount to the roll if you desire
 
 	dnum, err = rt.GetInt64("Dicenum")
 	if err != nil {
 		panic(err)
 	}
 
+	dmod, err = rt.GetInt64("Dicemod")
+	if err != nil {
+		panic(err)
+	}
+
+	// generates a roll based off of dnum and dsize
 	for i = 0; i < dnum; i++ {
-		var dsize int64
+		var dsize int64 // number of sides of dice, 1 being the lowest always
 
 		dsize, err = rt.GetInt64("Dicesize")
 		if err != nil {
@@ -65,22 +75,19 @@ func RollOneTable(rt *jason.Object) (err error) {
 		total += roll
 	}
 
-	var dmod int64
-	dmod, err = rt.GetInt64("Dicemod")
-	if err != nil {
-		panic(err)
-	}
-
+	// adds dmod to total from the rolls
 	total += dmod
+
 	rollsarray, err := rt.GetObjectArray("Rolls")
 	if err != nil {
 		panic(err)
 	}
 
+	// this portion of the function loads the inidividual rolls and then checks if the generated roll matches
 	for _, individRolls := range rollsarray {
 
-		var themin int64
-		var themax int64
+		var themin int64 // "Min" in json
+		var themax int64 // "Max" in json
 
 		themin, err = individRolls.GetInt64("Min")
 		if err != nil {
@@ -108,15 +115,14 @@ func RollOneTable(rt *jason.Object) (err error) {
 
 			fmt.Printf("%s: %s\n", name, result)
 
-			var subrolls *jason.Object
+			var subrolls *jason.Object // place to store any subrolls
 
 			subrolls, err = individRolls.GetObject("rolltable")
-			if err != nil {
-			} else {
-				err = nil
+			if err != nil { // idea is if there's an error, there's no subrolls so just pass
+			} else { // but, if err is nil, we call ourselves recursively
 				err = RollOneTable(subrolls)
 				if err != nil {
-					fmt.Println(err)
+					fmt.Println(err) // don't panic as their might be a non-nil error with further sub rolls
 					return
 				}
 			}
