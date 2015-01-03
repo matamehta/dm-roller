@@ -1,0 +1,33 @@
+# Welcome to dm-roller
+
+`dm-roller` is a script written in Go to roll many different roll tables with one shell command. Perhaps you
+have a lot of roll tables a la a modern DMG or other RPG rule book. Or perhaps you have your own customized
+very detailed roll tables that you want to put into json form and be able to run a simple script? This is the
+script for you. 
+
+## Features
+
+Very simple main program interprets the `rolltables.json` file for all of the rolls. You can use `\n` and `\t`
+to format names for output in the JSON as well. It allows dice ranges as well as mutliple dice rolled as well
+as a simple modifier for 1d20+1 type rolls. 
+
+As of now, the modifier is hard coded into the json file. And, all rolls are performed when the script runs. 
+
+In the future, the script will allow choices upon running or use flags to allow categories; i.e. dungeon
+generation or treasure drop choices. 
+
+## Please no copyrighted rolltables added
+
+Please do not add any roll tables that would violate the copyright of any party.
+
+
+## Use
+
+
+You only need to edit the file `rolltables.json`. As of now, it is auto loaded by the script. Please don't
+change the name of the file either as that will cause the script to panic.
+
+Please note that you can *nest* rolls almost as far as you would like. The function is recursive in that
+regard. I may clean up the json format in the future but it should not be a large change; it will likely be
+the addition of some sort of category or other filtering tags so that not every single roll is rolled on
+script call.
