@@ -32,6 +32,82 @@ After you have a working Go installation and set up your $GOPATH correctly:
 If you have your `$GOPATH` properly set up where $GOPATH/bin is in your $PATH, you go change `go build` above
 to `go install` and then call `dm-roller` from anywhere on the command line.
 
+## Example
+
+
+    {
+        "rolltables": [
+            {
+                "Dicemod": 0,
+                "Dicenum": 1,
+                "Dicesize": 10,
+                "Name": "Form of Government",
+                "Rolls": [
+                    {
+                        "Max": 3,
+                        "Min": 1,
+                        "Result": "Autocracy"
+                    },
+                    {
+                        "Max": 4,
+                        "Min": 4,
+                        "Result": "Bureaucracy",
+                        "rolltable": {
+                            "Dicemod": 0,
+                            "Dicenum": 1,
+                            "Dicesize": 4,
+                            "Name": "\tType of Bureaucracy",
+                            "Rolls": [
+                                {
+                                    "Max": 3,
+                                    "Min": 1,
+                                    "Result": "HHGTTG"
+                                },
+                                {
+                                    "Max": 4,
+                                    "Min": 4,
+                                    "Result": "USA"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Max": 10,
+                        "Min": 5,
+                        "Result": "Confederacy"
+                    }
+                ]
+            },
+            {
+                "Dicemod": 0,
+                "Dicenum": 1,
+                "Dicesize": 6,
+                "Name": "Un-nested Roll",
+                "Rolls": [
+                    {
+                        "Max": 4,
+                        "Min": 1,
+                        "Result": "you rolled a 1 through 4"
+                    },
+                    {
+                        "Max": 6,
+                        "Min": 5,
+                        "Result": "you rolled a 5 or 6"
+                    }
+                ]
+            }
+        ]
+    }
+
+
+Given the above `rolltables.json` file, running the command will output:
+
+    $ go run main.go
+    Form of Government: Autocracy
+    Un-nested Roll: you rolled a 1 through 4
+    $
+
+The results will be different based on the random rolls.
 
 ## Adding tables
 
