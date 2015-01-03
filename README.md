@@ -20,8 +20,20 @@ generation or treasure drop choices.
 
 Please do not add any roll tables that would violate the copyright of any party.
 
+## Installation
 
-## Use
+After you have a working Go installation and set up your $GOPATH correctly:
+
+    $ go get github.com/jrmiller82/dm-roller
+    $ cd $GOPATH/src/github.com/jrmiller82/dm-roller
+    $ go build
+    $ ./dm-roller
+
+If you have your `$GOPATH` properly set up where $GOPATH/bin is in your $PATH, you go change `go build` above
+to `go install` and then call `dm-roller` from anywhere on the command line.
+
+
+## Adding tables
 
 
 You only need to edit the file `rolltables.json`. As of now, it is auto loaded by the script. Please don't
