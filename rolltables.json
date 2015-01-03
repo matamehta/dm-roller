@@ -1,0 +1,45 @@
+{
+    "rolltables": [
+        {
+            "Dicemod": 0,
+            "Dicenum": 1,
+            "Dicesize": 10,
+            "Name": "Form of Government",
+            "Rolls": [
+                {
+                    "Max": 3,
+                    "Min": 1,
+                    "Result": "Autocracy"
+                },
+                {
+                    "Max": 4,
+                    "Min": 4,
+                    "Result": "Bureaucracy",
+                    "rolltable": {
+                        "Dicemod": 0,
+                        "Dicenum": 1,
+                        "Dicesize": 4,
+                        "Name": "\tType of Bureaucracy",
+                        "Rolls": [
+                            {
+                                "Max": 3,
+                                "Min": 1,
+                                "Result": "HHGTTG"
+                            },
+                            {
+                                "Max": 4,
+                                "Min": 4,
+                                "Result": "USA"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "Max": 10,
+                    "Min": 5,
+                    "Result": "Confederacy"
+                }
+            ]
+        }
+    ]
+}
