@@ -40,6 +40,24 @@
                     "Result": "Confederacy"
                 }
             ]
+        },
+        {
+            "Dicemod": 0,
+            "Dicenum": 1,
+            "Dicesize": 6,
+            "Name": "Un-nested Roll",
+            "Rolls": [
+                {
+                    "Max": 4,
+                    "Min": 1,
+                    "Result": "you rolled a 1 through 4"
+                },
+                {
+                    "Max": 6,
+                    "Min": 5,
+                    "Result": "you rolled a 5 or 6"
+                }
+            ]
         }
     ]
 }
