@@ -105,6 +105,13 @@ Given the above `rolltables.json` file, running the command will output:
     $ go run main.go
     Form of Government: Autocracy
     Un-nested Roll: you rolled a 1 through 4
+
+If Bureaucracy is hit on the first roll, the Type of Bureaucracy roll will occur:
+
+    $ go run main.go
+    Form of Government: Bureaucracy
+        Type of Bureaucracy: HHGTTG
+    Un-nested Roll: you rolled a 5 or 6
     $
 
 The results will be different based on the random rolls.
